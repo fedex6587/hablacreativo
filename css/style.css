@@ -1,0 +1,16 @@
+body{background: #eee url(http://subtlepatterns.com/patterns/sativa.png);}
+html,body{
+    position: relative;
+    height: 100%;
+}
+
+.titulo{
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.headerPagina{
+    background: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/02/Medell%C3%ADn_Cerro_Nutibara.JPG/1500px-Medell%C3%ADn_Cerro_Nutibara.JPG);
+    position: relative;
+    width: 100%;
+    background-size: cover;
+}
