@@ -12,6 +12,8 @@
         <script type="text/javascript" src="js/jquery.noty.packaged.min.js"></script>
         <script type="text/javascript" src="js/tablesorter/jquery-latest.js"></script> 
         <script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script> 
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script> 
     </head>
     <body>
 
@@ -37,9 +39,9 @@
                     <tbody>
                     <tr>
                         <td>El Jardín </td>
-                        <td>250.000</td>
-                        <td>160.000</td>
-                        <td>90.000</td>
+                        <td>250000</td>
+                        <td>160000</td>
+                        <td>90000</td>
                     </tr>
                     </tbody>
                 </table>
@@ -85,12 +87,30 @@
 		          </form>
 		        </div>
 		</div>
+
+        <div class="container grafica">
+                <canvas id="lineChart" height="200" width="200"></canvas>
+        </div>
+        
+
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">Created By: Fredis Escobar</p>
+            </div>
+        </footer>
+
+        
+
+        <script src="js/grafico.js"></script>
+
     </body>
 </html>
 
 <script>
 
     $(document).ready(function() {
+
+        cargarGrafico();
 
         $("#tablaPoblacion").tablesorter();
 
@@ -147,6 +167,7 @@
                     timeout: 2000
                 });
                 $("#tablaPoblacion").tablesorter( {sortList: [[0,0]]} );
+                cargarGrafico();
                 return;
 
             }else{
@@ -160,7 +181,7 @@
                 });
             }
 
-            $("#tablaPoblacion").tablesorter();
+            $("#tablaPoblacion").tablesorter();            
 	    });         
     });
 
