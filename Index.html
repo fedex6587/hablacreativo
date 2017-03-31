@@ -6,12 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.noty.packaged.min.js"></script>
+        <script type="text/javascript" src="js/tablesorter/jquery-latest.js"></script> 
+        <script type="text/javascript" src="js/tablesorter/jquery.tablesorter.js"></script> 
     </head>
     <body>
-        
-        <div class="jumbotron">
+
+        <div class="jumbotron headerPagina">
             <div class="container">
                 <center>
                     <h1 class="titulo">Poblacion de Medellín</h1>
@@ -19,5 +23,145 @@
             </div>
         </div>
 
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped tablesorter" id="tablaPoblacion">
+                    <thead>
+                    <tr>
+                        <th class="cabecera1">Nombre Zona</th>
+                        <th class="cabecera2">Número de habitantes</th>
+                        <th class="cabecera3">Hombres</th>
+                        <th class="cabecera4">Mujeres</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>El Jardín </td>
+                        <td>250.000</td>
+                        <td>160.000</td>
+                        <td>90.000</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>        
+
+        <div class="container">
+		        <div class="well well-sm">
+		          <form action="" >
+		            <legend class="text-center">Agregar Fila</legend>
+		    		
+					<!-- zone input-->
+		            <div class="form-group">
+		              <label class="control-label" for="nombreZona">Nombre Zona</label>
+		                <input name="nombreZona" type="text" placeholder="Name" class="form-control zona">
+		            </div>
+
+		            <!-- number input-->
+		            <div class="form-group">
+		              <label class="control-label" for="habitantes">Número de Habitantes</label>
+		                <input name="habitantes" type="number" placeholder="#" class="form-control habitantes">
+		            </div>
+		    
+		            <!-- male input-->
+		            <div class="form-group">
+		              <label class="control-label" for="hombres">Número de Hombres</label>
+		                <input name="hombres" type="number" placeholder="#" class="form-control hombres">
+		            </div>
+		    
+		            <!-- female input-->
+		            <div class="form-group">
+		              <label class="control-label" for="mujeres">Número de Mujeres</label>
+		                <input name="mujeres" type="number" placeholder="#" class="form-control mujeres">
+		            </div>
+		    
+		            <!-- Form actions -->
+		            <div class="form-group">
+		              <div class="text-right">
+		                <button type="button" class="btn btn-primary btn-md agregar">Agregar</button>
+		              </div>
+		            </div>
+
+		          </form>
+		        </div>
+		</div>
     </body>
 </html>
+
+<script>
+
+    $(document).ready(function() {
+
+        $("#tablaPoblacion").tablesorter();
+
+        $(".cabecera1").click(function(event) {
+            $("#tablaPoblacion").tablesorter();         
+        });
+
+         $(".cabecera2").click(function(event) {
+            $("#tablaPoblacion").tablesorter();         
+        });
+
+        $(".cabecera3").click(function(event) {
+            $("#tablaPoblacion").tablesorter();         
+        });
+
+        $(".cabecera4").click(function(event) {
+            $("#tablaPoblacion").tablesorter();         
+        });
+
+         $(".agregar").click(function(event) {
+            var params = {};
+            params.zona = $(".zona").val();
+            params.habitantes = $(".habitantes").val();
+            params.hombres = $(".hombres").val();
+            params.mujeres = ($(".mujeres").val()).replace(",", "");
+            console.log(params);
+            
+            if((params.zona != null && params.zona != "")  && (params.habitantes != null && params.habitantes != "") && (params.hombres != null && params.hombres != "") && (params.mujeres != null && params.mujeres != "")){ 
+                var n = $('tr:last td', $("#tablaPoblacion")).length;
+
+                var trow = $('<tr/>', {
+                        class : 'alguna-clase'
+                    }).appendTo('#tablaPoblacion');
+                    
+                    $('<td/>',{                    
+                        text: params.zona
+                    }).appendTo(trow);
+                    $('<td/>',{                   
+                        text: params.habitantes
+                    }).appendTo(trow);
+                    $('<td/>',{                    
+                        text: params.hombres
+                    }).appendTo(trow);
+                    $('<td/>',{                   
+                        text: params.mujeres
+                    }).appendTo(trow);
+
+                noty({
+                    text: 'Elemento agregado con exito!',
+                    layout: 'topRight',
+                    closeWith: ['click', 'hover'],
+                    type: 'success',
+                    maxVisible: 3,
+                    timeout: 2000
+                });
+                $("#tablaPoblacion").tablesorter( {sortList: [[0,0]]} );
+                return;
+
+            }else{
+                noty({
+                    text: 'Faltan datos por agregar',
+                    layout: 'topRight',
+                    closeWith: ['click', 'hover'],
+                    type: 'warning',
+                    maxVisible: 3,
+                    timeout: 2000
+                });
+            }
+
+            $("#tablaPoblacion").tablesorter();
+	    });         
+    });
+
+</script>
